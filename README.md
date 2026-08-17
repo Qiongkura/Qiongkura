@@ -43,9 +43,10 @@
 
 <div align="center">
 
-![Qiongkura's GitHub stats](https://github-readme-stats.vercel.app/api?username=Qiongkura&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=58a6ff&icon_color=79c0ff&text_color=c9d1d9)
-
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Qiongkura&layout=compact&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=58a6ff&text_color=c9d1d9)
+![Followers](https://img.shields.io/github/followers/Qiongkura?style=for-the-badge&label=Followers&color=0d1117&labelColor=1f6feb)
+![Stars](https://img.shields.io/github/stars/Qiongkura?style=for-the-badge&label=Stars&color=0d1117&labelColor=FFD700)
+![Repos](https://img.shields.io/github/repos/Qiongkura?style=for-the-badge&label=Repos&color=0d1117&labelColor=39D353)
+![Commit Activity](https://img.shields.io/github/commit-activity/w/Qiongkura?style=for-the-badge&label=Commits/Week&color=0d1117&labelColor=A855F7)
 
 </div>
 
