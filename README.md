@@ -12,7 +12,7 @@
 
 ### 📊 Activity
 
-<img src="https://raw.githubusercontent.com/Qiongkura/Qiongkura/metrics/github-metrics.svg" />
+<img src="https://raw.githubusercontent.com/Qiongkura/Qiongkura/main/github-metrics.svg" />
 
 ---
 
