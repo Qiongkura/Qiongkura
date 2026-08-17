@@ -12,30 +12,11 @@
 
 ### 📊 Activity
 
-<table>
-  <tr>
-    <td>
-
-**Activity**
-- 🔨 300+ Commits
-- 📦 10+ Repositories
-- 🍴 5+ Forks
-
-    </td>
-    <td>
-
-**Community**
-- 👥 6 Followers
-- 👀 Watching 4 repos
-- ⭐ 10+ Stargazers
-
-    </td>
-  </tr>
-</table>
+<img src="https://raw.githubusercontent.com/Qiongkura/Qiongkura/metrics/github-metrics.svg" />
 
 ---
 
-### 🛠 Most Used Languages
+### 🛠 Tech Stack
 
 <div align="center">
 
