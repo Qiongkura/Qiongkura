@@ -17,7 +17,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           user: Qiongkura
-          template: classic
+          template: compact
           plugin_activity: yes
           plugin_activity_limit: 7
           plugin_languages: yes
