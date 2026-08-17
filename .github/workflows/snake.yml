@@ -1,4 +1,4 @@
-﻿name: Generate Snake Animation
+name: Generate Snake Animation
 on:
   schedule:
     - cron: "0 */12 * * *"
@@ -21,4 +21,4 @@ jobs:
           target_branch: output
           build_dir: dist
         env:
-          GITHUB_TOKEN: {{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
