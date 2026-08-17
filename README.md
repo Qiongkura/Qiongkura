@@ -16,6 +16,18 @@
 
 ---
 
+### 📂 Featured Repositories
+
+| Repository | Description | Language | Stars |
+|---|---|---|---|
+| [dsh-usage-plugin](https://github.com/Qiongkura/dsh-usage-plugin) | DSH Token 用量统计附属插件 | TypeScript | ⭐ 4 |
+| [dsh-desktop](https://github.com/Qiongkura/dsh-desktop) | DeepSeek Harness Desktop (Electron shell) | JavaScript | ⭐ 1 |
+| [dsh-interface-settings](https://github.com/Qiongkura/dsh-interface-settings) | DSH 壁纸/透明/毛玻璃界面定制插件 | TypeScript | ⭐ 1 |
+| [Popup-about-caring-for-friends](https://github.com/Qiongkura/Popup-about-caring-for-friends) | Python 弹窗关心朋友代码 | Python | ⭐ 1 |
+| [BeamNG-autopilot](https://github.com/Qiongkura/BeamNG-autopilot) | BeamNG 自动驾驶 | - | - |
+
+---
+
 ### 🛠 Tech Stack
 
 <div align="center">
