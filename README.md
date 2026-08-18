@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Qiongkura/Qiongkura/main/github-metrics.svg" width="600" alt="GitHub Metrics">
+  <img
+    src="./github-metrics.svg"
+    width="600"
+    alt="GitHub Metrics"
+  />
 </p>
 
 <p align="center">
