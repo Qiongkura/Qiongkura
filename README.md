@@ -1,10 +1,3 @@
-<p align="center">
-  <img
-    src="./github-metrics.svg"
-    width="600"
-    alt="GitHub Metrics"
-  />
-</p>
 
 <p align="center">
   <a href="https://github.com/Qiongkura/codeyear">
