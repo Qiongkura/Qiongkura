@@ -1,0 +1,64 @@
+name: Update CodeYear card
+
+on:
+  schedule:
+    # Daily at 04:00 UTC (12:00 Beijing time)
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: codeyear-card
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cache public commit details
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/codeyear
+          key: codeyear-details-${{ github.repository_owner }}-${{ github.run_id }}
+          restore-keys: |
+            codeyear-details-${{ github.repository_owner }}-
+
+      - name: Install CodeYear
+        run: >
+          pip install
+          "https://github.com/Qiongkura/codeyear/releases/download/v0.2.13/codeyear-0.2.13-py3-none-any.whl"
+
+      - name: Generate card and update README
+        run: >
+          codeyear github ${{ github.repository_owner }}
+          --year $(date +%Y)
+          --fallback-previous
+          --max-commits 500
+          --card-only
+          --out "$RUNNER_TEMP/codeyear"
+          --cache-dir "$HOME/.cache/codeyear"
+          --profile-repo .
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CODEYEAR_LANG: zh
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A README.md ':(glob)**/codeyear-*.svg'
+          if git diff --cached --quiet; then
+            echo "Card is already up to date."
+            exit 0
+          fi
+          git commit -m "Update CodeYear card [skip ci]"
+          git push
