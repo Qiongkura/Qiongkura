@@ -43,7 +43,7 @@ jobs:
           codeyear github ${{ github.repository_owner }}
           --year $(date +%Y)
           --fallback-previous
-          --max-commits 2000
+          --max-commits 5000
           --card-only
           --out "$RUNNER_TEMP/codeyear"
           --cache-dir "$HOME/.cache/codeyear"
