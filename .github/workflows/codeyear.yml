@@ -49,7 +49,9 @@ jobs:
           --cache-dir "$HOME/.cache/codeyear"
           --profile-repo .
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # 提交量大时，在仓库 Secrets 里加 CODEYEAR_TOKEN（PAT）可避免
+          # GITHUB_TOKEN 每小时 1,000 次的配额限制。
+          GITHUB_TOKEN: ${{ secrets.CODEYEAR_TOKEN || secrets.GITHUB_TOKEN }}
           CODEYEAR_LANG: zh
 
       - name: Commit and push
