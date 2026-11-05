@@ -1,149 +1,85 @@
 name: Update CodeYear card
 
-
-
 on:
-
   schedule:
-
-    # Daily at 04:00 UTC (12:00 Beijing time)
-
+    # 每天 04:00 UTC（北京时间 12:00）
     - cron: "0 4 * * *"
-
+    # 想每周更新：换成 "0 4 * * 1"
+    # 想每月更新：换成 "0 4 1 * *"
   workflow_dispatch:
 
-
-
 permissions:
-
   contents: write
 
-
-
 concurrency:
-
   group: codeyear-card
-
   cancel-in-progress: true
 
-
-
 jobs:
-
   update:
-
     runs-on: ubuntu-latest
-
     timeout-minutes: 15
-
     steps:
-
       - uses: actions/checkout@v4
 
-
-
       - uses: actions/setup-python@v5
-
         with:
-
           python-version: "3.12"
 
-
-
       - name: Cache public commit details
-
         uses: actions/cache@v4
-
         with:
-
           path: ~/.cache/codeyear
-
           key: codeyear-details-${{ github.repository_owner }}-${{ github.run_id }}
-
           restore-keys: |
-
             codeyear-details-${{ github.repository_owner }}-
 
-
-
       - name: Install CodeYear
+        # 默认自动读取最新发布的 Release wheel；也可把 CODEYEAR_VERSION 设为固定版本（如 0.2.14）。
         run: |
           VER="$CODEYEAR_VERSION"
           if [ -z "$VER" ] || [ "$VER" = "latest" ]; then
-            VER=$(python3 -c "import json,urllib.request; print(json.load(urllib.request.urlopen(https://qiongkura.github.io/codeyear/version.json,timeout=5))[version])" 2>/dev/null || echo "0.2.13")
+            VER=$(python3 -c "import json,urllib.request; print(json.load(urllib.request.urlopen('https://qiongkura.github.io/codeyear/version.json',timeout=5))['version'])" 2>/dev/null || echo "0.2.14")
           fi
           pip install "https://github.com/Qiongkura/codeyear/releases/download/v${VER}/codeyear-${VER}-py3-none-any.whl"
         env:
           CODEYEAR_VERSION: latest
+
       - name: Generate card and update README
-
-        # 缓存会复用已拉取的 commit 详情；首次运行也能覆盖千级提交。
-
+        # 提交很多时，加一个 CODEYEAR_TOKEN（PAT）可避免 GITHUB_TOKEN 的 1,000 次/小时限制
         run: >
-
           codeyear github ${{ github.repository_owner }}
-
           --year $(date +%Y)
-
           --fallback-previous
-
           --max-commits 5000
-
           --card-only
-
           --out "$RUNNER_TEMP/codeyear"
-
           --cache-dir "$HOME/.cache/codeyear"
-
           --profile-repo .
-
         env:
-
-          # 提交量大时，在仓库 Secrets 里加 CODEYEAR_TOKEN（PAT）可避免
-
-          # GITHUB_TOKEN 每小时 1,000 次的配额限制。
-
           GITHUB_TOKEN: ${{ secrets.CODEYEAR_TOKEN || secrets.GITHUB_TOKEN }}
-
+          # 想要英文卡片就改成 en（同时决定 CLI 语言）
           CODEYEAR_LANG: zh
           # 影响“深夜/作息”统计，按你的时区改
           TZ: Asia/Shanghai
 
-
-
       - name: Commit and push
-
         run: |
-
           git config user.name "github-actions[bot]"
-
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
+          # -A 会把 update_profile 清理掉的旧版本 SVG 删除也一起暂存；
+          # glob magic 同时覆盖根目录和 assets/ 子目录里的卡片。
           git add -A README.md ':(glob)**/codeyear-*.svg'
-
           if git diff --cached --quiet; then
-
             echo "Card is already up to date."
-
             exit 0
-
           fi
-
           git commit -m "Update CodeYear card [skip ci]"
-
           # Other profile workflows may push while this job runs; rebase and retry.
-
           for attempt in 1 2 3; do
-
-            if git pull --rebase origin main && git push; then
-
+            if git pull --rebase && git push; then
               exit 0
-
             fi
-
             sleep 5
-
           done
-
           exit 1
-
