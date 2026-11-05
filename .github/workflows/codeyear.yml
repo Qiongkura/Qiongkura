@@ -38,11 +38,11 @@ jobs:
           "https://github.com/Qiongkura/codeyear/releases/download/v0.2.13/codeyear-0.2.13-py3-none-any.whl"
 
       - name: Generate card and update README
+        # 缓存会复用已拉取的 commit 详情；首次运行也能覆盖千级提交。
         run: >
           codeyear github ${{ github.repository_owner }}
           --year $(date +%Y)
           --fallback-previous
-          # 缓存会复用已拉取的 commit 详情；首次运行也能覆盖千级提交。
           --max-commits 2000
           --card-only
           --out "$RUNNER_TEMP/codeyear"
