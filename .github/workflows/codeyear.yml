@@ -67,15 +67,14 @@ jobs:
 
 
       - name: Install CodeYear
-
-        run: >
-
-          pip install
-
-          "https://github.com/Qiongkura/codeyear/releases/download/v0.2.13/codeyear-0.2.13-py3-none-any.whl"
-
-
-
+        run: |
+          VER="$CODEYEAR_VERSION"
+          if [ -z "$VER" ] || [ "$VER" = "latest" ]; then
+            VER=$(python3 -c "import json,urllib.request; print(json.load(urllib.request.urlopen(https://qiongkura.github.io/codeyear/version.json,timeout=5))[version])" 2>/dev/null || echo "0.2.13")
+          fi
+          pip install "https://github.com/Qiongkura/codeyear/releases/download/v${VER}/codeyear-${VER}-py3-none-any.whl"
+        env:
+          CODEYEAR_VERSION: latest
       - name: Generate card and update README
 
         # 缓存会复用已拉取的 commit 详情；首次运行也能覆盖千级提交。
