@@ -42,7 +42,8 @@ jobs:
           codeyear github ${{ github.repository_owner }}
           --year $(date +%Y)
           --fallback-previous
-          --max-commits 500
+          # 缓存会复用已拉取的 commit 详情；首次运行也能覆盖千级提交。
+          --max-commits 2000
           --card-only
           --out "$RUNNER_TEMP/codeyear"
           --cache-dir "$HOME/.cache/codeyear"
