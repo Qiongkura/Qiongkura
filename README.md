@@ -2,8 +2,8 @@
 <p align="center">
   <a href="https://github.com/Qiongkura/codeyear">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="./codeyear-2026-card-v16-dark.svg">
-      <img src="./codeyear-2026-card-v16.svg" width="640" alt="CodeYear 2026">
+      <source media="(prefers-color-scheme: dark)" srcset="./codeyear-2026-card-v17-dark.svg">
+      <img src="./codeyear-2026-card-v17.svg" width="640" alt="CodeYear 2026">
     </picture>
   </a>
 </p>
